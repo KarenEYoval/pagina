@@ -42,12 +42,21 @@ function tabla($resultado, $tabla_nombre, $tabla_descripcion)
 <?php
 $resultado = null;
 
-$consulta = "SELECT A.Matricula, A.Nombre, A.ApellidoPaterno, A.ApellidoMaterno, A.email, A.edad FROM Alumnos A order by A.ApellidoPaterno;";
+$consulta = "SELECT 
+alumno.matricula, alumno.nombres, alumno.paterno, alumno.materno,
+carrera.CodigoCarrera, carrera.nombreCarrera, materia.codigoMateria, materia.nombreMateria, materia.bloque
+FROM   
+Alumno
+INNER JOIN Cursa ON Alumno.Matricula = Cursa.Matricula
+INNER JOIN Oferta ON Cursa.NCR = Oferta.NCR
+INNER JOIN Materia ON Oferta.CodigoMateria = Materia.CodigoMateria
+INNER JOIN Carrera ON Materia.CodigoCarrera = Carrera.CodigoCarrera;
+";
 if ($sentencia = $mysqli->prepare($consulta)){
     $sentencia->execute();
     $resultado = $sentencia->get_result();
     $sentencia->close();
-    tabla ($resultado, 'Bases de datos', 'Consulta 1. Obtener estudiantes.');
+    tabla ($resultado, 'Base de datos', 'Consulta 1. Obtener alumnos.');
 }
 
 ?>
