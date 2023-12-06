@@ -47,7 +47,7 @@ if ($sentencia = $mysqli->prepare($consulta)){
     $sentencia->execute();
     $resultado = $sentencia->get_result();
     $sentencia->close();
-    tabla ($resultado, 'Fabricante', 'Ejercicio 1. Obtener todos los fabricantes.');
+    tabla ($resultado, 'Bases de datos', 'Consulta 1. Obtener estudiantes.');
 }
 
 ?>
